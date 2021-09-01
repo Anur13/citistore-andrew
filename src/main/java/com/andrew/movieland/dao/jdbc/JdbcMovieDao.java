@@ -5,9 +5,11 @@ import com.andrew.movieland.dao.jdbc.mapper.MoviesRowMapper;
 import com.andrew.movieland.entity.Movie;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 @AllArgsConstructor
 public class JdbcMovieDao implements MovieDao {
     private static final MoviesRowMapper moviesRowMapper = new MoviesRowMapper();

@@ -28,7 +28,6 @@
         <property name="password" value="${db.password}"/>
     </bean>
 
-    <bean id="jdbcMovieDao" class="com.andrew.movieland.dao.jdbc.JdbcMovieDao"/>
 
     <!--Services-->
     <bean id="movieService" class="com.andrew.movieland.service.MovieService">
