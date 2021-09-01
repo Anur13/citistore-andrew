@@ -1,4 +1,4 @@
-package com.andrew.movieLand.entity;
+package com.andrew.movieland.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
@@ -14,9 +14,7 @@ public class Movie {
     private String nameNative;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy")
     private LocalDateTime releasedDate;
-    private String description;
     private double rating;
     private double price;
     private String picturePath;
-    private int votes;
 }

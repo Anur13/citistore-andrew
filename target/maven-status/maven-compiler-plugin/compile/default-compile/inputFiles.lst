@@ -1,6 +1,6 @@
-/Users/andrew/Desktop/cityStore-andrew/src/main/java/com/andrew/movieLand/dao/jdbc/JdbcMovieDao.java
-/Users/andrew/Desktop/cityStore-andrew/src/main/java/com/andrew/movieLand/web/controller/MovieController.java
-/Users/andrew/Desktop/cityStore-andrew/src/main/java/com/andrew/movieLand/service/MovieService.java
-/Users/andrew/Desktop/cityStore-andrew/src/main/java/com/andrew/movieLand/entity/Movie.java
-/Users/andrew/Desktop/cityStore-andrew/src/main/java/com/andrew/movieLand/dao/MovieDao.java
-/Users/andrew/Desktop/cityStore-andrew/src/main/java/com/andrew/movieLand/dao/jdbc/mapper/MoviesRowMapper.java
+/Users/andrew/Desktop/citystore-andrew/src/main/java/com/andrew/movieland/dao/jdbc/mapper/MoviesRowMapper.java
+/Users/andrew/Desktop/citystore-andrew/src/main/java/com/andrew/movieland/service/MovieService.java
+/Users/andrew/Desktop/citystore-andrew/src/main/java/com/andrew/movieland/web/controller/MovieController.java
+/Users/andrew/Desktop/citystore-andrew/src/main/java/com/andrew/movieland/dao/jdbc/JdbcMovieDao.java
+/Users/andrew/Desktop/citystore-andrew/src/main/java/com/andrew/movieland/entity/Movie.java
+/Users/andrew/Desktop/citystore-andrew/src/main/java/com/andrew/movieland/dao/MovieDao.java
