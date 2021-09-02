@@ -16,7 +16,16 @@ public class JdbcMovieDao implements MovieDao {
     private static final String GET_ALL_MOVIES_QUERY = "SELECT id, name_russian ,name_native," +
             " released_date, rating , price, picture_path FROM movies";
 
+    private static final String GET_THREE_RANDOM_QUERY = "SELECT id, name_russian, name_native," +
+            " released_date, rating, price, picture_path FROM" +
+            " movies ORDER BY RANDOM() LIMIT 3;";
+
     private JdbcTemplate jdbcTemplate;
+
+    @Override
+    public List<Movie> getThreeRandom() {
+        return jdbcTemplate.query(GET_THREE_RANDOM_QUERY, moviesRowMapper);
+    }
 
     @Override
     public List<Movie> findAll() {

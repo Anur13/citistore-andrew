@@ -15,8 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -38,14 +37,18 @@ class MovieControllerTest {
     @Test
     @DisplayName("Check if response is in json format and is not empty")
     public void testIfResponseIsJsonAndItIncludesMovie() throws Exception {
-        String mockTestResult = "The Shawshank Redemption";
-
-        RequestBuilder builder = MockMvcRequestBuilders.get("/movie");
-
         mockMvc.perform(get("/movie"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(greaterThan(0))));
+    }
+    @Test
+    @DisplayName("Check that response is ok, type - Json, and size = 3")
+    public void testGetThreeRandomMovies() throws Exception {
+        mockMvc.perform(get("/movie/random"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(equalTo(3))));
     }
 
 }
