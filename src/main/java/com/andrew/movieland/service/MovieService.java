@@ -10,10 +10,13 @@ import java.util.List;
 @AllArgsConstructor
 public class MovieService {
     @Autowired
-    MovieDao jdbcMovieDao;
+    private MovieDao movieDao;
 
     public List<Movie> findAll() {
-        return jdbcMovieDao.findAll();
+        return movieDao.findAll();
     }
 
+    public List<Movie> getThreeRandom() {
+        return movieDao.getThreeRandom();
+    }
 }
