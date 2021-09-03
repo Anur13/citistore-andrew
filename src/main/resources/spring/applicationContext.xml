@@ -34,6 +34,10 @@
         <constructor-arg name="jdbcMovieDao" ref="jdbcMovieDao"/>
     </bean>
 
+    <bean id="genreService" class="com.andrew.movieland.service.GenreService">
+        <constructor-arg name="jdbcGenreDao" ref="jdbcGenreDao"/>
+    </bean>
+
     <mvc:annotation-driven/>
 
 </beans>

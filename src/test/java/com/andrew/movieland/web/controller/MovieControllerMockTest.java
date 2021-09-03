@@ -23,8 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MovieControllerMockTest {
     private MockMvc mockMvc;
     private MovieService movieService;
-    @Autowired
-    private WebApplicationContext webApplicationContext;
 
 
     @BeforeEach

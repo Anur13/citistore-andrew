@@ -21,12 +21,14 @@ public class MovieController {
 
     @GetMapping
     public List<Movie> findAll() {
+        log.info("Requesting find all");
         return movieService.findAll();
     }
 
     @GetMapping("/random")
-    public List<Movie> findThreeRandom(){
-        return movieService.getThreeRandom();
+    public List<Movie> findThreeRandom() {
+        log.info("Requesting random");
+        return movieService.getThreeRandom(5);
     }
 }
 
