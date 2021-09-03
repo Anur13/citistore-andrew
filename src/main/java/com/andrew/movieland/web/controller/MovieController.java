@@ -23,5 +23,10 @@ public class MovieController {
     public List<Movie> findAll() {
         return movieService.findAll();
     }
+
+    @GetMapping("/random")
+    public List<Movie> findThreeRandom(){
+        return movieService.getThreeRandom();
+    }
 }
 
