@@ -1,5 +1,6 @@
 package com.andrew.movieland.web.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,9 +40,7 @@ class MovieControllerTest {
     @DisplayName("Check if response is in json format and is not empty")
     public void testIfResponseIsJsonAndItIncludesMovie() throws Exception {
         String mockTestResult = "The Shawshank Redemption";
-
         RequestBuilder builder = MockMvcRequestBuilders.get("/movie");
-
         mockMvc.perform(get("/movie"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
