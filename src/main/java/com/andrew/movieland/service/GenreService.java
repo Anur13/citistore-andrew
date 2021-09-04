@@ -15,4 +15,8 @@ public class GenreService {
     public List<Genre> findAll() {
         return genreDao.findAll();
     }
+
+    public Genre findById(int id) {
+        return genreDao.findById(id);
+    }
 }

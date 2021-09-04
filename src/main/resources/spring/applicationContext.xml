@@ -32,6 +32,7 @@
     <!--Services-->
     <bean id="movieService" class="com.andrew.movieland.service.MovieService">
         <constructor-arg name="jdbcMovieDao" ref="jdbcMovieDao"/>
+        <constructor-arg name="genreService" ref="genreService"/>
     </bean>
 
     <bean id="genreService" class="com.andrew.movieland.service.GenreService">

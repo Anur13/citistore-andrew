@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @Slf4j
 public class MovieController {
     @Autowired
-    MovieService movieService;
+    private MovieService movieService;
 
     @GetMapping
     public List<Movie> findAll() {
@@ -26,9 +27,14 @@ public class MovieController {
     }
 
     @GetMapping("/random")
-    public List<Movie> findThreeRandom() {
+    public List<Movie> findRandom() {
         log.info("Requesting random");
-        return movieService.getThreeRandom(5);
+        return movieService.getRandom(5);
+    }
+
+    @GetMapping("/genre/{genreId}")
+    public List<Movie> findByGenre(@PathVariable int genreId) {
+        return movieService.findByGenre(genreId);
     }
 }
 

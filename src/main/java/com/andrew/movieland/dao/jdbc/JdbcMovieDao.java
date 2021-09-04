@@ -18,16 +18,24 @@ public class JdbcMovieDao implements MovieDao {
     private static final String GET_ALL_MOVIES_QUERY = "SELECT id, name_russian ,name_native," +
             " released_date, rating , price, picture_path FROM movies";
 
-    private static final String GET_THREE_RANDOM_QUERY = "SELECT id, name_russian, name_native," +
+    private static final String GET_RANDOM_QUERY = "SELECT id, name_russian, name_native," +
             " released_date, rating, price, picture_path FROM" +
             " movies ORDER BY RANDOM() LIMIT ?;";
+
+    private static final String GET_BY_GENRE_QUERY = "SELECT id, name_russian, name_native," +
+            " released_date, rating, price, picture_path FROM movies WHERE genre = ?";
 
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<Movie> getThreeRandom(int randomQuantity) {
+    public List<Movie> getRandom(int randomQuantity) {
         log.info("Requesting random {}", randomQuantity);
-        return jdbcTemplate.query(GET_THREE_RANDOM_QUERY, moviesRowMapper, randomQuantity);
+        return jdbcTemplate.query(GET_RANDOM_QUERY, moviesRowMapper, randomQuantity);
+    }
+
+    @Override
+    public List<Movie>  findByGenre(String genreName) {
+        return jdbcTemplate.query(GET_BY_GENRE_QUERY, moviesRowMapper, genreName);
     }
 
     @Override
