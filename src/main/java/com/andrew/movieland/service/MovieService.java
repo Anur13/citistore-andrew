@@ -10,7 +10,6 @@ import java.util.List;
 
 @AllArgsConstructor
 public class MovieService {
-    @Autowired
     private MovieDao movieDao;
     private GenreService genreService;
 

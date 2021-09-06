@@ -16,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class GenreConroller {
-    @Autowired
     private GenreService genreService;
 
     @RequestMapping

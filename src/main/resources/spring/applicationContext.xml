@@ -39,7 +39,6 @@
     </bean>
 
     <bean id="genreService" class="com.andrew.movieland.service.GenreService">
-        <constructor-arg name="jdbcGenreDao" ref="jdbcGenreDao"/>
         <constructor-arg name="genreCache" ref="genreCache"/>
     </bean>
 
