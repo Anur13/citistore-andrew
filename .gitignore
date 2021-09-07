@@ -3,6 +3,7 @@
 
 # Log file
 *.log
+/logs/*
 
 # BlueJ files
 *.ctxt
@@ -25,4 +26,4 @@
 hs_err_pid*
 *.MF
 /target/
-*.log
+*.txt
