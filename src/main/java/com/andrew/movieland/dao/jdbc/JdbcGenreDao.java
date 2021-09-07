@@ -14,19 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class JdbcGenreDao implements GenreDao {
-    private static final GenreRowMapper genreRowMapper = new GenreRowMapper();
+    private static final GenreRowMapper GENRE_ROW_MAPPER = new GenreRowMapper();
     private static final String FIND_ALL_QUERY = "SELECT id, name FROM genre;";
-    private static final String FIND_BY_ID = "SELECT id, name FROM genre WHERE id = ?;";
 
     private JdbcTemplate jdbcTemplate;
 
     public List<Genre> findAll() {
         log.info("Requesting all genres");
-        return jdbcTemplate.query(FIND_ALL_QUERY, genreRowMapper);
+        return jdbcTemplate.query(FIND_ALL_QUERY, GENRE_ROW_MAPPER);
     }
 
-    @Override
-    public Genre findById(int id) {
-        return jdbcTemplate.queryForObject(FIND_BY_ID, genreRowMapper, id);
-    }
+
 }

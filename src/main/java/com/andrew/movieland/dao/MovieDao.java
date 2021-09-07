@@ -10,5 +10,5 @@ public interface MovieDao {
 
     public List<Movie> getRandom(int randomQuantity);
 
-    public List<Movie>  findByGenre(String genreName);
+    public List<Movie> getMoviesByGenre(int genreId);
 }

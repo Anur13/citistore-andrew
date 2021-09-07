@@ -1,7 +1,7 @@
 package com.andrew.movieland.web.controller.mockTests;
 
 import com.andrew.movieland.entity.Genre;
-import com.andrew.movieland.service.GenreService;
+import com.andrew.movieland.service.DefaultGenreService;
 import com.andrew.movieland.web.controller.GenreConroller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,11 +20,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class GenreConrollerMockTest {
     private MockMvc mockMvc;
-    private GenreService genreService;
+    private DefaultGenreService genreService;
 
     @BeforeEach
     public void setup() {
-        genreService = mock(GenreService.class);
+        genreService = mock(DefaultGenreService.class);
         this.mockMvc = MockMvcBuilders.standaloneSetup(new GenreConroller(genreService)).build();
     }
 
