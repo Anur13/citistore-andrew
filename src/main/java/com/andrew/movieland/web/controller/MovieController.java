@@ -1,13 +1,10 @@
 package com.andrew.movieland.web.controller;
 
 import com.andrew.movieland.entity.Movie;
-import com.andrew.movieland.service.MovieService;
+import com.andrew.movieland.service.DefaultMovieService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,8 +13,7 @@ import java.util.List;
 @RequestMapping("movie")
 @Slf4j
 public class MovieController {
-    @Autowired
-    MovieService movieService;
+    private DefaultMovieService movieService;
 
     @GetMapping
     public List<Movie> findAll() {
@@ -26,9 +22,14 @@ public class MovieController {
     }
 
     @GetMapping("/random")
-    public List<Movie> findThreeRandom() {
+    public List<Movie> findRandom(@RequestParam(defaultValue = "5") int randomMovieSQuantity) {
         log.info("Requesting random");
-        return movieService.getThreeRandom(5);
+        return movieService.getRandom(randomMovieSQuantity);
+    }
+
+    @GetMapping("/genre/{genreId}")
+    public List<Movie> findByGenre(@PathVariable int genreId) {
+        return movieService.findByGenre(genreId);
     }
 }
 

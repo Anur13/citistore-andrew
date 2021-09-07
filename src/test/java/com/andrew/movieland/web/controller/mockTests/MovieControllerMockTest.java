@@ -1,14 +1,15 @@
-package com.andrew.movieland.web.controller;
+package com.andrew.movieland.web.controller.mockTests;
 
+import com.andrew.movieland.entity.Genre;
 import com.andrew.movieland.entity.Movie;
-import com.andrew.movieland.service.MovieService;
+import com.andrew.movieland.service.DefaultGenreService;
+import com.andrew.movieland.service.DefaultMovieService;
+import com.andrew.movieland.web.controller.MovieController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,12 +23,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class MovieControllerMockTest {
     private MockMvc mockMvc;
-    private MovieService movieService;
+    private DefaultMovieService movieService;
+    private DefaultGenreService genreService;
 
 
     @BeforeEach
     public void setup() throws Exception {
-        movieService = mock(MovieService.class);
+        genreService = mock(DefaultGenreService.class);
+
+        movieService = mock(DefaultMovieService.class);
         this.mockMvc = MockMvcBuilders.standaloneSetup(new MovieController(movieService)).build();
     }
 
@@ -66,6 +70,43 @@ public class MovieControllerMockTest {
 
         verify(movieService, times(1)).findAll();
         verifyNoMoreInteractions(movieService);
+    }
+
+
+    @Test
+    public void testFindMoviesByGenre() throws Exception {
+        Genre comedy = Genre.builder()
+                .id(1)
+                .name("comedy")
+                .build();
+
+        Movie shawshankRedemption = Movie.builder()
+                .id(1)
+                .nameNative("The Shawshank Redemption")
+                .nameRussian("Побег из Шоушенка")
+                .releasedDate(LocalDateTime.of(1994, 01, 01, 10, 10))
+                .build();
+
+        Movie greenMile = Movie.builder()
+                .id(2)
+                .nameNative("The Green Mile")
+                .nameRussian("Зеленая миля")
+                .releasedDate(LocalDateTime.of(1994, 01, 01, 10, 10))
+                .build();
+
+        when(movieService.findByGenre(1)).thenReturn(List.of(shawshankRedemption, greenMile));
+        mockMvc.perform(get("/movie/genre/1")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].nameNative").value("The Shawshank Redemption"))
+                .andExpect(jsonPath("$[0].nameRussian").value("Побег из Шоушенка"))
+                .andExpect(jsonPath("$[0].releasedDate").value("1994"))
+                .andExpect(jsonPath("$[1].id").value(2))
+                .andExpect(jsonPath("$[1].nameNative").value("The Green Mile"))
+                .andExpect(jsonPath("$[1].nameRussian").value("Зеленая миля"))
+                .andExpect(jsonPath("$[1].releasedDate").value("1994"));
     }
 
 }
