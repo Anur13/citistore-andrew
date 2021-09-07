@@ -2,8 +2,8 @@ package com.andrew.movieland.web.controller.mockTests;
 
 import com.andrew.movieland.entity.Genre;
 import com.andrew.movieland.entity.Movie;
-import com.andrew.movieland.service.GenreService;
-import com.andrew.movieland.service.MovieService;
+import com.andrew.movieland.service.DefaultGenreService;
+import com.andrew.movieland.service.DefaultMovieService;
 import com.andrew.movieland.web.controller.MovieController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,15 +23,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class MovieControllerMockTest {
     private MockMvc mockMvc;
-    private MovieService movieService;
-    private GenreService genreService;
+    private DefaultMovieService movieService;
+    private DefaultGenreService genreService;
 
 
     @BeforeEach
     public void setup() throws Exception {
-        genreService = mock(GenreService.class);
+        genreService = mock(DefaultGenreService.class);
 
-        movieService = mock(MovieService.class);
+        movieService = mock(DefaultMovieService.class);
         this.mockMvc = MockMvcBuilders.standaloneSetup(new MovieController(movieService)).build();
     }
 
@@ -94,8 +94,7 @@ public class MovieControllerMockTest {
                 .releasedDate(LocalDateTime.of(1994, 01, 01, 10, 10))
                 .build();
 
-        when(genreService.findById(1)).thenReturn(comedy);
-        when(movieService.findByGenre(comedy.getId())).thenReturn(List.of(shawshankRedemption, greenMile));
+        when(movieService.findByGenre(1)).thenReturn(List.of(shawshankRedemption, greenMile));
         mockMvc.perform(get("/movie/genre/1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

@@ -2,10 +2,9 @@ package com.andrew.movieland.web.controller;
 
 
 import com.andrew.movieland.entity.Genre;
-import com.andrew.movieland.service.GenreService;
+import com.andrew.movieland.service.DefaultGenreService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class GenreConroller {
-    @Autowired
-    private GenreService genreService;
+    private DefaultGenreService genreService;
 
     @RequestMapping
     public List<Genre> findAll() {
