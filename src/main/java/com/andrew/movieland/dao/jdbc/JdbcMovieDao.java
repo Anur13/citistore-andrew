@@ -3,6 +3,7 @@ package com.andrew.movieland.dao.jdbc;
 import com.andrew.movieland.dao.MovieDao;
 import com.andrew.movieland.dao.jdbc.mapper.MoviesRowMapper;
 import com.andrew.movieland.entity.Movie;
+import com.andrew.movieland.util.sorting.SortType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,9 +23,16 @@ public class JdbcMovieDao implements MovieDao {
             " released_date, rating, price, picture_path FROM" +
             " movies ORDER BY RANDOM() LIMIT ?;";
 
-    private static final String GET_MOVIES_BY_GENRE_ID_QUERY = "select id, name_russian, name_native," +
+    private static final String GET_MOVIES_BY_GENRE_ID_QUERY = "SELECT id, name_russian, name_native," +
             " released_date, rating, price, picture_path FROM movies LEFT JOIN movie_genre ON movie_genre.movie_id = movies.id " +
-            "where movie_genre.genre_id = ?;";
+            "WHERE movie_genre.genre_id = ?;";
+
+    private static final String GET_SORTED_MOVIES_QUERY = "SELECT id, name_russian, name_native," +
+            " released_date, rating, price, picture_path FROM movies ORDER BY ";
+
+    private static final String GET_MOVIES_BY_GENRE_ID_AND_SORTED_QUERY = "SELECT id, name_russian, name_native," +
+            " released_date, rating, price, picture_path FROM movies LEFT JOIN movie_genre ON movie_genre.movie_id = movies.id " +
+            "WHERE movie_genre.genre_id = ?";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -43,5 +51,19 @@ public class JdbcMovieDao implements MovieDao {
     @Override
     public List<Movie> getMoviesByGenre(int genreId) {
         return jdbcTemplate.query(GET_MOVIES_BY_GENRE_ID_QUERY, MOVIES_ROW_MAPPER, genreId);
+    }
+
+    @Override
+    public List<Movie> getSortedMovies(SortType sortType) {
+        String sortField = sortType.getSortField().toString();
+        String sortDirection = sortType.getSortDirection().toString();
+        return jdbcTemplate.query(GET_SORTED_MOVIES_QUERY + sortField + " " + sortDirection + ";", MOVIES_ROW_MAPPER);
+    }
+
+    @Override
+    public List<Movie> findMoviesByGenreAndSorted(SortType sortType, int genreId) {
+        String sortField = sortType.getSortField().toString();
+        String sortDirection = sortType.getSortDirection().toString();
+        return jdbcTemplate.query(GET_SORTED_MOVIES_QUERY + sortField + " " + sortDirection + ";", MOVIES_ROW_MAPPER, genreId);
     }
 }

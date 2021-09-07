@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class JdbcGenreDao implements GenreDao {
+    
     private static final GenreRowMapper GENRE_ROW_MAPPER = new GenreRowMapper();
     private static final String FIND_ALL_QUERY = "SELECT id, name FROM genre;";
 
