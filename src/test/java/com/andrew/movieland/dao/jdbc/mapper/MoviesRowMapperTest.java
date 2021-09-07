@@ -17,7 +17,6 @@ class MoviesRowMapperTest {
     public void testMovieRowMapper() throws SQLException {
         ResultSet resultSet = mock(ResultSet.class);
 
-
         when(resultSet.getInt("id")).thenReturn(1);
         when(resultSet.getString("name_russian")).thenReturn("Побег из Шоушенка");
         when(resultSet.getString("name_native")).thenReturn("The Shawshank Redemption");
@@ -35,7 +34,6 @@ class MoviesRowMapperTest {
         assertEquals(movie.getRating(), 8.89);
         assertEquals(movie.getPrice(), 123.45);
         assertEquals(movie.getPicturePath(), "https://images-na");
-
 
     }
 }
