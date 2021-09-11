@@ -6,8 +6,10 @@ import com.andrew.movieland.service.DefaultGenreService;
 import com.andrew.movieland.service.DefaultMovieService;
 import com.andrew.movieland.web.controller.MovieController;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -18,14 +20,27 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 public class MovieControllerMockTest {
     private MockMvc mockMvc;
     private DefaultMovieService movieService;
     private DefaultGenreService genreService;
 
+    Movie shawshankRedemption = Movie.builder()
+            .id(1)
+            .nameNative("The Shawshank Redemption")
+            .nameRussian("Побег из Шоушенка")
+            .releasedDate(LocalDateTime.of(1994, 01, 01, 10, 10))
+            .build();
+
+    Movie greenMile = Movie.builder()
+            .id(2)
+            .nameNative("The Green Mile")
+            .nameRussian("Зеленая миля")
+            .releasedDate(LocalDateTime.of(1994, 01, 01, 10, 10))
+            .build();
 
     @BeforeEach
     public void setup() throws Exception {
@@ -37,19 +52,6 @@ public class MovieControllerMockTest {
 
     @Test
     public void testFindAllWithMock() throws Exception {
-        Movie shawshankRedemption = Movie.builder()
-                .id(1)
-                .nameNative("The Shawshank Redemption")
-                .nameRussian("Побег из Шоушенка")
-                .releasedDate(LocalDateTime.of(1994, 01, 01, 10, 10))
-                .build();
-        Movie greenMile = Movie.builder()
-                .id(2)
-                .nameNative("The Green Mile")
-                .nameRussian("Зеленая миля")
-                .releasedDate(LocalDateTime.of(1994, 01, 01, 10, 10))
-                .build();
-
 
         List<Movie> movies = List.of(shawshankRedemption, greenMile);
         when(movieService.findAll()).thenReturn(movies);
@@ -75,25 +77,6 @@ public class MovieControllerMockTest {
 
     @Test
     public void testFindMoviesByGenre() throws Exception {
-        Genre comedy = Genre.builder()
-                .id(1)
-                .name("comedy")
-                .build();
-
-        Movie shawshankRedemption = Movie.builder()
-                .id(1)
-                .nameNative("The Shawshank Redemption")
-                .nameRussian("Побег из Шоушенка")
-                .releasedDate(LocalDateTime.of(1994, 01, 01, 10, 10))
-                .build();
-
-        Movie greenMile = Movie.builder()
-                .id(2)
-                .nameNative("The Green Mile")
-                .nameRussian("Зеленая миля")
-                .releasedDate(LocalDateTime.of(1994, 01, 01, 10, 10))
-                .build();
-
         when(movieService.findByGenre(1)).thenReturn(List.of(shawshankRedemption, greenMile));
         mockMvc.perform(get("/movie/genre/1")
                         .accept(MediaType.APPLICATION_JSON))
@@ -108,5 +91,6 @@ public class MovieControllerMockTest {
                 .andExpect(jsonPath("$[1].nameRussian").value("Зеленая миля"))
                 .andExpect(jsonPath("$[1].releasedDate").value("1994"));
     }
+
 
 }
